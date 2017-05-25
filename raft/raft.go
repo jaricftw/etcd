@@ -1034,8 +1034,9 @@ func stepFollower(r *raft, m pb.Message) {
 			r.logger.Infof("%x no leader at term %d; dropping proposal", r.id, r.Term)
 			return
 		}
-		m.To = r.lead
-		r.send(m)
+		// drop this message to disable forwarding
+		//m.To = r.lead
+		//r.send(m)
 	case pb.MsgApp:
 		r.electionElapsed = 0
 		r.lead = m.From
